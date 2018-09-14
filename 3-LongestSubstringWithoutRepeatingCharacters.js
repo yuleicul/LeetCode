@@ -18,7 +18,6 @@ Output: 3
 Explanation: The answer is "wke", with the length of 3. 
              Note that the answer must be a substring, "pwke" is a subsequence and not a substring.
 */
-
 /**
  * @param {string} s
  * @return {number}
@@ -28,21 +27,20 @@ Explanation: The answer is "wke", with the length of 3.
 //       keep track of 子串开头位置、结尾位置、长度、哈希表
 //       扫描到a的重复字符a'则将子字符串开头定位到a的下一位
 var lengthOfLongestSubstring = function(s) {
-    var i = 0, j = 0, maxlen = 0, hash = {};
-    
-    while (j <= s.length) {
+    var i = 0, j = 0, maxlen = 0, len = 0, hash = {};
+    while (j < s.length) {
         // 如果不是重复的字符
-        // 第二个条件是因为：如abcba，b重复时i跳到c，但是a仍然在哈希表中，所以位置一定要比i大
-        if (!hash[s[j]] && hash[s[j]] >= i) {
+        // 第二个条件是因为：如abcba，b重复时i跳到c，但是a仍然在哈希表中且位置比i小
+        if (hash[s[j]] === undefined ||  (hash[s[j]] !== undefined && hash[s[j]] < i)) {
             hash[s[j]] = j;
-            len = j - i + 1;
-            j++;
-            maxlen = maxlen >= len ? maxlen : len;
         }
         else {
             i = hash[s[j]] + 1;
             hash[s[j]] = j;
         }
+        len = j - i + 1;
+        j++;
+        maxlen = maxlen >= len ? maxlen : len;
     }
    return maxlen;
 }
@@ -73,7 +71,7 @@ var lengthOfLongestSubstring2 = function(s) {
     
     return maxlen;
 };
-
-console.log(lengthOfLongestSubstring("abcabcabcbde"));
+lengthOfLongestSubstring("bbbbb")
+// console.log(lengthOfLongestSubstring("bbbbb"));
 
 
