@@ -40,7 +40,7 @@ var longestPalindrome = function(s) {
     // 计算出每个位置的回文半径
     for (let i = 1; i < str.length; i++) {
         // 如果当前位置小于maxR则有两种取值
-        if (i < maxR) 
+        if (i < maxR) {
             if (r[2 * pos - i] < maxR - i) {
                 r[i] = r[2 * pos - i];
             }
